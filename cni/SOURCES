@@ -1,0 +1,2 @@
+multus-daemonset.yml: https://raw.githubusercontent.com/intel/multus-cni/master/images/multus-daemonset.yml
+ovs-cni.yml: https://raw.githubusercontent.com/kubevirt/ovs-cni/master/examples/ovs-cni.yml
