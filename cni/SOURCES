@@ -1,2 +1,7 @@
-multus-daemonset.yml: https://raw.githubusercontent.com/intel/multus-cni/master/images/multus-daemonset.yml
-ovs-cni.yml: https://raw.githubusercontent.com/kubevirt/ovs-cni/master/examples/ovs-cni.yml
+namespace.yaml: https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.57.0/namespace.yaml
+network-addons-config.crd.yaml: https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.57.0/network-addons-config.crd.yaml
+operator.yaml: https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.57.0/operator.yaml
+macvtap-feature-gate.yml: https://kubevirt.io/user-guide/operations/activating_feature_gates/#how-to-activate-a-feature-gate
+macvtap-eth2.yml: https://kubevirt.io/user-guide/virtual_machines/interfaces_and_networks/
+cr.yml: https://github.com/kubevirt/cluster-network-addons-operator
+
