@@ -29,7 +29,7 @@ argocd app create cni \
     --sync-policy auto \
     --sync-option Prune=true
 argocd app create vyos \
-    --repo https://github.com/learnitall/vyos.git \
+    --repo https://github.com/learnitall/yaghl.git \
     --path vyos \
     --dest-server https://kubernetes.default.svc \
     --port-forward-namespace argocd \
