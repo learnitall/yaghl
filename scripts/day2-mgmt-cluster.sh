@@ -28,6 +28,13 @@ argocd app create cni \
     --port-forward-namespace argocd \
     --sync-policy auto \
     --sync-option Prune=true
+argocd app create vyos \
+    --repo https://github.com/learnitall/vyos.git \
+    --path vyos \
+    --dest-server https://kubernetes.default.svc \
+    --port-forward-namespace argocd \
+    --sync-policy auto \
+    --sync-option Prune=true
 
 argocd logout day2
 ps aux | grep -e 'kubectl port-forward svc/argocd-server -n argocd 8443:443$' | awk '{print $2}' | xargs kill
