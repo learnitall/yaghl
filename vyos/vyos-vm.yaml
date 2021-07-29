@@ -1,0 +1,62 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  name: vyos-yaghl
+  namespace: vyos
+  labels:
+    kubevirt.io/os: linux
+spec:
+  running: true
+  dataVolumeTemplates:
+  - metadata:
+      name: vyos-iso-dv
+    spec:
+      pvc:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+      source:
+        http:
+          url: https://downloads.vyos.io/rolling/current/amd64/vyos-rolling-latest.iso 
+
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: vyos-yaghl
+    spec:
+      terminationGracePeriodSeconds: 120
+      domain:
+        resources:
+          requests:
+            memory: 2048M
+            cpu: 2
+        devices:
+          disks:
+          - name: vyos-iso
+            disk:
+              bus: virtio
+          - name: cloud-init
+            disk:
+              bus: virtio
+          interfaces:
+          - name: inside
+            macvtap: {}
+          - name: outside
+            macvtap: {}
+      volumes:
+      - name: vyos-iso
+        dataVolume:
+          name: vyos-iso-dv
+      - name: cloud-init
+        cloudInitNoCloud:
+          secretRef:
+            name: vyos-cloud-init
+      networks:
+      - name: outside
+        multus:
+          networkName: outsidenatnetwork
+      - name: inside
+        multus:
+          networkName: yaghlnetwork
