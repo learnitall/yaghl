@@ -15,7 +15,7 @@ kubectl krew install virt
 
 # Install argocd
 kubectl create namespace argocd
-kubectl -- apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # Install airflow
 kubectl create namespace airflow
