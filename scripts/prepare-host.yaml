@@ -1,0 +1,106 @@
+# Create management cluster
+---
+- name: Create management cluster
+  hosts: all
+  user: fedora
+  become: yes
+  tasks:
+    - name: Add docker repo
+      get_url:
+        url:  https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: 0644
+        seuser: system_u
+        serole: object_r
+        setype: system_conf_t
+        selevel: s0
+    - name: Install dnf dependencies
+      dnf:
+        state: present
+        disable_gpg_check: yes
+        name:
+          - tmux
+          - vim
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - conntrack
+          - 'https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm'
+          - '@virtualization'
+          - git
+          - snapd
+    - name: Disable selinux in CLI
+      shell: setenforce 0
+    - name: Disable selinux in config
+      lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: SELINUX=permissive
+    - name: Load br-netfilter
+      shell: modprobe br_netfilter
+    - name: Enable br-netfilter persistently
+      copy:
+        dest: /etc/modules-load.d/k8s.conf
+        content: |
+          br_netfilter
+    - name: Configure iptables in sysctl
+      copy:
+        dest: /etc/sysctl.d/k8s.conf
+        content: |
+          net.bridge.bridge-nf-call-ip6tables = 1
+          net.bridge.bridge-nf-call-iptables = 1
+    - name: Enable libvirtd service
+      service:
+        state: started
+        enabled: yes
+        name: libvirtd
+    - name: Setup snap classic support
+      file:
+        src: /var/lib/snapd/snap
+        dest: /snap
+        state: link
+    - name: Install kubectl and helm
+      snap:
+        classic: yes
+        name:
+          - kubectl
+          - helm
+    - name: Install argocd CLI
+      get_url:
+        url: https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+        dest: /usr/local/bin/argocd
+        owner: root
+        group: root
+        mode: 0755
+        seuser: system_u
+        serole: object_r
+        setype: bin_t
+        selevel: s0
+    - name: Create cluster
+      become: yes
+      become_user: fedora
+      block:
+        - name: Install krew
+          script:
+            cmd: ./install-krew.sh
+            creates: /home/fedora/.krew
+        - name: Add krew to path
+          lineinfile:
+            state: present
+            path: /home/fedora/.bashrc
+            insertafter: EOF
+            line: 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"'
+        - name: Get minikube profiles
+          shell: minikube profile list -o json
+          register: minikube_profiles
+          failed_when: 
+            - minikube_profiles.rc != 0
+            - minikube_profiles.rc != 80
+        - name: Create minikube cluster
+          when: (minikube_profiles.stdout|from_json).error is defined or (minikube_profiles.stdout|from_json).valid | length == 0
+          script: ./create-mgmt-cluster.sh
+        - name: Run day2 operations
+          script: ./day2-mgmt-cluster.sh
+        
