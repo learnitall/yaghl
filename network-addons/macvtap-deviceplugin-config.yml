@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: macvtap-deviceplugin-config
+data:
+  DP_MACVTAP_CONF: |
+    [
+        {
+            "name": "internal",
+            "master": "enp1s0",
+            "mode": "bridge",
+        },
+        {
+            "name": "external",
+            "master": "enp2s0",
+            "mode": "bridge",
+        },
+    ]

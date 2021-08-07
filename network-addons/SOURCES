@@ -4,4 +4,4 @@ operator.yaml: https://github.com/kubevirt/cluster-network-addons-operator/relea
 macvtap-feature-gate.yml: https://kubevirt.io/user-guide/operations/activating_feature_gates/#how-to-activate-a-feature-gate
 macvtap-eth2.yml: https://kubevirt.io/user-guide/virtual_machines/interfaces_and_networks/
 cr.yml: https://github.com/kubevirt/cluster-network-addons-operator
-
+macvtap-deviceplugin-config: https://kubevirt.io/user-guide/virtual_machines/interfaces_and_networks/#how-to-expose-host-interface-to-the-macvtap-device-plugin
