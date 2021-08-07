@@ -1,14 +1,14 @@
 kind: NetworkAttachmentDefinition
 apiVersion: k8s.cni.cncf.io/v1
 metadata:
-  name: yaghlnetwork
+  name: inside
   namespace: vyos
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/enp2s0
+    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/inside
 spec:
   config: '{
       "cniVersion": "0.4.0",
-      "name": "yaghlnetwork",
+      "name": "inside",
       "type": "macvtap",
       "mtu": 1500
   }'

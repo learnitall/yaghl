@@ -7,12 +7,12 @@ data:
     [
         {
             "name": "internal",
-            "master": "enp1s0",
+            "lowerDevice": "enp1s0",
             "mode": "bridge",
         },
         {
             "name": "external",
-            "master": "enp2s0",
+            "lowerDevice": "enp2s0",
             "mode": "bridge",
         },
     ]
