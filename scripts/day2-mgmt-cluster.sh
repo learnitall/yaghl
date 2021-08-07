@@ -21,9 +21,9 @@ argocd app create kubevirt-cdi \
     --port-forward-namespace argocd \
     --sync-policy auto \
     --sync-option Prune=true
-argocd app create cni \
+argocd app create network-addons \
     --repo https://github.com/learnitall/yaghl.git \
-    --path cni \
+    --path network-addons \
     --dest-server https://kubernetes.default.svc \
     --port-forward-namespace argocd \
     --sync-policy auto \
