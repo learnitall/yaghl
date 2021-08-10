@@ -31,6 +31,11 @@
           - '@virtualization'
           - git
           - snapd
+    - name: Start docker
+      service:
+        state: started
+        enabled: yes
+        name: docker
     - name: Disable selinux in CLI
       shell: setenforce 0
     - name: Disable selinux in config
@@ -78,6 +83,15 @@
         serole: object_r
         setype: bin_t
         selevel: s0
+    - name: Add fedora user to docker group
+      user:
+        append: yes
+        groups: 'docker'
+        name: fedora
+        state: present
+    - name: Reset connection to allow user changes to take effect
+      ansible.builtin.meta:
+        reset_connection
     - name: Create cluster
       become: yes
       become_user: fedora
