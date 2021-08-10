@@ -7,12 +7,12 @@ data:
   DP_MACVTAP_CONF: |
     [
         {
-            "name": "internal",
+            "name": "external",
             "lowerDevice": "enp1s0",
             "mode": "bridge",
         },
         {
-            "name": "external",
+            "name": "internal",
             "lowerDevice": "enp2s0",
             "mode": "bridge",
         },

@@ -5,7 +5,10 @@
 
 set -xe
 
-minikube start --driver=docker --dns-domain='k8s.yaghl' --cni=flannel
+docker network create -d macvlan --attachable -o parent=enp2s0 internal_net
+minikube start --driver=docker --dns-domain='k8s.yaghl' --cni=flannel --network=host
+docker network connect internal_net minikube
+
 
 # Add kubevirt
 minikube addons enable kubevirt
