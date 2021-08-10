@@ -4,7 +4,7 @@ metadata:
   name: outside 
   namespace: vyos
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/external
+    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/enp2s0
 spec:
   config: '{
       "cniVersion": "0.3.1",
