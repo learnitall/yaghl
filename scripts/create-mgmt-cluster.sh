@@ -6,12 +6,6 @@ set -xe
 
 minikube start --driver=none --dns-domain='k8s.yaghl'
 
-# Add kubevirt
-minikube addons enable kubevirt
-
-# Install virtctl
-kubectl krew install virt
-
 # Install argocd
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -29,3 +23,9 @@ for dep_name in airflow-flower airflow-scheduler airflow-statsd airflow-webserve
 do
     kubectl rollout status deployment $dep_name -n airflow
 done
+
+# Add kubevirt
+minikube addons enable kubevirt
+
+# Install virtctl
+kubectl krew install virt
