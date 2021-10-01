@@ -3,12 +3,12 @@
 
 # Setup argo apps
 ARGO_PASS=`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
-kubectl port-forward svc/argocd-server -n argocd 8443:443 &
+kubectl port-forward svc/argocd-server -n argocd 9443:443 &
 
 sleep 1
 set +x
 
-argocd login localhost:8443 \
+argocd login localhost:9443 \
     --name day2 \
     --username admin \
     --password "${ARGO_PASS}" \
@@ -37,4 +37,4 @@ argocd app create vyos \
     --sync-option Prune=true
 
 argocd logout day2
-ps aux | grep -e 'kubectl port-forward svc/argocd-server -n argocd 8443:443$' | awk '{print $2}' | xargs kill
+ps aux | grep -e 'kubectl port-forward svc/argocd-server -n argocd 9443:443$' | awk '{print $2}' | xargs kill

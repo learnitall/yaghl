@@ -8,12 +8,12 @@ data:
     [
         {
             "name": "external",
-            "lowerDevice": "enp1s0",
+            "lowerDevice": "eth0",
             "mode": "bridge",
         },
         {
             "name": "internal",
-            "lowerDevice": "enp2s0",
+            "lowerDevice": "eth1",
             "mode": "bridge",
         },
     ]
