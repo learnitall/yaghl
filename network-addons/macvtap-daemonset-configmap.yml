@@ -13,18 +13,20 @@ data:
       name: macvtap-deviceplugin-config
       namespace: {{ .Namespace }}
     data:
-      DP_MACVTAP_CONF: >-
+      DP_MACVTAP_CONF: |
         [
             {
                 "name": "external",
                 "lowerDevice": "eth1",
                 "mode": "bridge",
+                "capacity": 1,
             },
             {
                 "name": "internal",
                 "lowerDevice": "eth2",
                 "mode": "bridge",
-            },
+                "capacity": 1
+            }
         ]
     ---
     ---
