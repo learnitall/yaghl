@@ -19,7 +19,7 @@ data:
                 "name": "external",
                 "lowerDevice": "eth1",
                 "mode": "bridge",
-                "capacity": 1,
+                "capacity": 1
             },
             {
                 "name": "internal",
