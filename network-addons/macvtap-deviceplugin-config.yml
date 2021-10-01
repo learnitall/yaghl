@@ -4,16 +4,16 @@ metadata:
   name: macvtap-deviceplugin-config
   namespace: cluster-network-addons
 data:
-  DP_MACVTAP_CONF: |
+  DP_MACVTAP_CONF: >-
     [
         {
             "name": "external",
-            "lowerDevice": "eth0",
+            "lowerDevice": "eth1",
             "mode": "bridge",
         },
         {
             "name": "internal",
-            "lowerDevice": "eth1",
+            "lowerDevice": "eth2",
             "mode": "bridge",
         },
     ]
