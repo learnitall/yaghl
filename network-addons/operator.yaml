@@ -139,6 +139,13 @@ spec:
       labels:
         name: cluster-network-addons-operator
     spec:
+      volumes:
+        - name: macvtap-daemonset
+          configMap:
+            name: macvtap-daemonset-configmap
+            items:
+              - key: 002-macvtap-daemonset.yaml
+                path: 002-macvtap-daemonset.yaml
       containers:
       - env:
         - name: MULTUS_IMAGE
@@ -176,6 +183,10 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: WATCH_NAMESPACE
+        volumeMounts:
+          - name: macvtap-daemonset
+            mountPath: /data/macvtap/002-macvtap-daemonset.yaml
+            subPath: 002-macvtap-daemonset.yaml
         image: quay.io/kubevirt/cluster-network-addons-operator:v0.57.0
         imagePullPolicy: Always
         name: cluster-network-addons-operator

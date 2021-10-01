@@ -5,3 +5,4 @@ macvtap-feature-gate.yml: https://kubevirt.io/user-guide/operations/activating_f
 macvtap-eth2.yml: https://kubevirt.io/user-guide/virtual_machines/interfaces_and_networks/
 cr.yml: https://github.com/kubevirt/cluster-network-addons-operator
 macvtap-deviceplugin-config: https://kubevirt.io/user-guide/virtual_machines/interfaces_and_networks/#how-to-expose-host-interface-to-the-macvtap-device-plugin
+macvtap-daemonset-config: https://raw.githubusercontent.com/kubevirt/cluster-network-addons-operator/5660174ac86d2d0dd3b7868bd7dbdf846bfa7bc6/data/macvtap/002-macvtap-daemonset.yaml
