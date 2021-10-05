@@ -1,14 +1,14 @@
 kind: NetworkAttachmentDefinition
 apiVersion: k8s.cni.cncf.io/v1
 metadata:
-  name: inside
+  name: outside 
   namespace: vyos
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/internal
+    k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/external
 spec:
   config: '{
       "cniVersion": "0.4.0",
-      "name": "inside",
+      "name": "external",
       "type": "macvtap",
       "mtu": 1500
   }'

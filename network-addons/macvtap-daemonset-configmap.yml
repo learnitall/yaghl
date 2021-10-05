@@ -17,13 +17,13 @@ data:
         [
             {
                 "name": "external",
-                "lowerDevice": "eth1",
+                "lowerDevice": "eth0",
                 "mode": "macvtap",
                 "capacity": 1
             },
             {
                 "name": "internal",
-                "lowerDevice": "eth2",
+                "lowerDevice": "eth1",
                 "mode": "macvtap",
                 "capacity": 1
             }
