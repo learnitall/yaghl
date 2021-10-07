@@ -7,20 +7,6 @@ metadata:
     kubevirt.io/os: linux
     kubevirt.io/vm: vyos-yaghl
 spec:
-  dataVolumeTemplates:
-  - metadata:
-      name: vyos-iso-vm-dv
-    spec:
-      source:
-        pvc:
-          namespace: vyos
-          name: vyos-iso-dv
-      pvc:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
   runStrategy: "RerunOnFailure"
   template:
     metadata:
@@ -49,7 +35,7 @@ spec:
       volumes:
       - name: vyos-iso
         dataVolume:
-          name: vyos-iso-vm-dv
+          name: vyos-iso-dv
       - name: cloud-init
         cloudInitNoCloud:
           secretRef:
