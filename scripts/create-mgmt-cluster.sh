@@ -31,21 +31,11 @@ do
     kubectl rollout status deployment $dep_name -n airflow
 done
 
-# Add kubevirt
-minikube addons enable kubevirt
-while ! kubectl get ns | grep -i kubevirt
-do
-    sleep 5
-done
-# For these deployments, order matters
-for dep_name in operator api controller
-do
-    while ! kubectl get deployment -n kubevirt | grep -i virt-$dep_name
-    do
-        sleep 5
-    done
-    kubectl rollout status deployment virt-$dep_name -n kubevirt
-done
+# Install kubevirt
+export KUBEVIRT_RELEASE=v0.35.0
+kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/${KUBEVIRT_RELEASE}/kubevirt-operator.yaml
+kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/${KUBEVIRT_RELEASE}/kubevirt-cr.yaml
+kubectl -n kubevirt wait kv kubevirt --for condition=Available
 
 # Install virtctl
 kubectl krew install virt
