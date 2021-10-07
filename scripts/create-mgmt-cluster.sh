@@ -32,7 +32,7 @@ do
 done
 
 # Install kubevirt
-export KUBEVIRT_RELEASE=v0.35.0
+export KUBEVIRT_RELEASE=v0.45.0
 kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/${KUBEVIRT_RELEASE}/kubevirt-operator.yaml
 kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/${KUBEVIRT_RELEASE}/kubevirt-cr.yaml
 kubectl -n kubevirt wait kv kubevirt --for condition=Available
