@@ -16,7 +16,7 @@ spec:
       domain:
         resources:
           requests:
-            memory: 2048Mi
+            memory: 2Gi
             cpu: '2'
         devices:
           disks:
