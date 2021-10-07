@@ -1,7 +1,7 @@
 kind: NetworkAttachmentDefinition
 apiVersion: k8s.cni.cncf.io/v1
 metadata:
-  name: outside 
+  name: external 
   namespace: vyos
   annotations:
     k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/external
