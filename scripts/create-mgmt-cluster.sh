@@ -29,8 +29,17 @@ done
 
 # Add kubevirt
 minikube addons enable kubevirt
-for dep_name in api controller operator
+while ! kubectl get ns | grep -i kubevirt
 do
+    sleep 5
+done
+# For these deployments, order matters
+for dep_name in operator api controller
+do
+    while ! kubectl get deployment -n kubevirt | grep -i virt-$dep_name
+    do
+        sleep 5
+    done
     kubectl rollout status deployment virt-$dep_name -n kubevirt
 done
 
