@@ -6,6 +6,9 @@ set -xe
 
 minikube start --driver=none --dns-domain='k8s.yaghl'
 
+# Install flannel cni
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.14.0/Documentation/kube-flannel.yml
+
 # Install argocd
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -26,6 +29,10 @@ done
 
 # Add kubevirt
 minikube addons enable kubevirt
+for dep_name in api controller operator
+do
+    kubectl rollout status deployment virt-$dep_name -n kubevirt
+done
 
 # Install virtctl
 kubectl krew install virt
