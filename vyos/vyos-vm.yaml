@@ -7,20 +7,6 @@ metadata:
     kubevirt.io/os: linux
 spec:
   running: true
-  dataVolumeTemplates:
-  - metadata:
-      name: vyos-iso-dv
-    spec:
-      pvc:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
-      source:
-        http:
-          url: https://downloads.vyos.io/rolling/current/amd64/vyos-rolling-latest.iso 
-
   template:
     metadata:
       labels:
