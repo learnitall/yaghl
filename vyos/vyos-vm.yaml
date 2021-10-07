@@ -15,8 +15,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: 0
       domain:
-        machine:
-          type: ""
         resources:
           requests:
             memory: 2Gi
