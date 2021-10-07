@@ -5,8 +5,8 @@
 set -xe
 
 # Disable our internal interface since it's just a bridge
-sudo nmcli con mod eth1 ipv4.method disabled
-sudo nmcli con mod eth1 connection.autoconnect yes
+sudo nmcli con mod 'Wired connection 1' ipv4.method disabled
+sudo nmcli con mod 'Wired connection 1' connection.autoconnect yes
 
 minikube start --driver=none --dns-domain='k8s.yaghl'
 

@@ -5,15 +5,18 @@ metadata:
   namespace: vyos
   labels:
     kubevirt.io/os: linux
+    kubevirt.io/vm: vyos-yaghl
 spec:
-  running: true
+  runStrategy: "RerunOnFailure"
   template:
     metadata:
       labels:
-        kubevirt.io/domain: vyos-yaghl
+        kubevirt.io/vm: vyos-yaghl
     spec:
-      terminationGracePeriodSeconds: 120
+      terminationGracePeriodSeconds: 0
       domain:
+        machine:
+          type: ""
         resources:
           requests:
             memory: 2Gi
