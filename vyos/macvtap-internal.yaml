@@ -7,7 +7,7 @@ metadata:
     k8s.v1.cni.cncf.io/resourceName: macvtap.network.kubevirt.io/internal
 spec:
   config: '{
-      "cniVersion": "0.4.0",
+      "cniVersion": "0.3.1",
       "name": "internal",
       "type": "macvtap",
       "mtu": 1500
