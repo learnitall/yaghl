@@ -27,11 +27,11 @@ spec:
           - name: cloud-init
             disk:
               bus: virtio
-          interfaces:
-          - name: internal
-            macvtap: {}
-          - name: external
-            macvtap: {}
+          #interfaces:
+          #- name: internal
+          #  macvtap: {}
+          #- name: external
+          #  macvtap: {}
       volumes:
       - name: vyos-iso
         dataVolume:
@@ -40,10 +40,10 @@ spec:
         cloudInitNoCloud:
           secretRef:
             name: vyos-cloud-init
-      networks:
-      - name: external
-        multus:
-          networkName: external
-      - name: internal
-        multus:
-          networkName: internal
+      #networks:
+      #- name: external
+      #  multus:
+      #    networkName: external
+      #- name: internal
+      #  multus:
+      #    networkName: internal
