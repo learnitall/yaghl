@@ -1,3 +1,4 @@
 *.swp
 inventory
 .vagrant
+data/**
