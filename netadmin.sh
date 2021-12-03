@@ -1,5 +1,6 @@
 #!/bin/zsh
 podman build -t yaghl-router containerfiles/router
+podman build -t yaghl-dnsmasq containerfiles/dnsmasq
 
 podman network create yaghl-internal \
     --driver macvlan \
@@ -25,29 +26,30 @@ podman run \
     localhost/yaghl-router \
     /bin/sh -c "trap : TERM INT; /opt/router.sh; sleep infinity & wait"
 
-# https://github.com/poseidon/dnsmasq
 podman run \
     --detach \
     --network yaghl-internal \
-    --ip 10.0.0.6 \
-    --add-host matchbox.yaghl:10.0.0.7 \
+    --ip 10.0.0.60 \
+    --add-host foremanlite.yaghl:10.0.0.70 \
     --pod yaghl \
     --name dnsmasq \
     --cap-add=NET_ADMIN,NET_RAW \
     -v ./data/dnsmasq.conf:/etc/dnsmasq.conf:Z \
-    quay.io/poseidon/dnsmasq
+    -v ./data/tftpboot:/var/lib/tftpboot:Z \
+    localhost/yaghl-dnsmasq
 
-# https://github.com/poseidon/matchbox
 podman run \
     --detach \
     --network yaghl-internal \
-    --ip 10.0.0.7 \
+    --ip 10.0.0.70 \
     --pod yaghl \
-    --name matchbox \
+    --name foremanlite \
     -v ./data/matchbox/:/opt/matchbox:Z \
-    quay.io/poseidon/matchbox \
-    -address=0.0.0.0:8080 \
-    -log-level=debug \
-    -data-path=/opt/matchbox \
-    -assets-path=/opt/matchbox/assets
+    localhost/foremanlite -b 0.0.0.0:8080 --log-level=debug
+
+#
+#    -address=0.0.0.0:8080 \
+#    -log-level=debug \
+#    -data-path=/opt/matchbox \
+#    -assets-path=/opt/matchbox/assets
 
