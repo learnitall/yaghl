@@ -5,10 +5,10 @@
 #
 set -eou pipefail
 
-ARCH=${1:-"$ARCH"}
+ARCH=${1:-"x86_64"}
 STREAM=${2:-"stable"}
 VERSION=${3:-"34.20211016.3.0"}
-DEST_DIR=${4:-"$PWD/data/matchbox/assets"}
+DEST_DIR=${4:-"$PWD/data/foremanlite/data/static"}
 DEST=$DEST_DIR/fedora-coreos
 BASE_URL=https://builds.coreos.fedoraproject.org/prod/streams/$STREAM/builds/$VERSION/$ARCH
 

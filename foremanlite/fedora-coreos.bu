@@ -1,0 +1,47 @@
+# Helpful sources:
+# https://techoverflow.net/2021/06/14/a-simple-coreos-config-for-beginners-with-password-login/
+# https://coreos.github.io/butane/config-fcos-v1_4/
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: admin
+      groups:
+        - "sudo"
+        - "docker"
+      password_hash: $y$j9T$n6h8P2ik8tfoNUFBBoly00$7bnrMF8oFrB25Fc3NqigqEH/MI5YXIJwtCG/iEsns.2
+systemd:
+  units:
+    - name: docker.service
+      enabled: true
+    - name: containerd.service
+      enabled: true
+    - name: serial-getty@ttyS0.service
+      dropins:
+      - name: autologin-core.conf
+        contents: |
+          [Service]
+          # Override Execstart in main unit
+          ExecStart=
+          # Add new Execstart with `-` prefix to ignore failure
+          ExecStart=-/usr/sbin/agetty --autologin admin --noclear %I $TERM
+          TTYVTDisallocate=no
+storage:
+  files:
+    - path: /etc/profile.d/systemd-pager.sh
+      mode: 0644
+      contents:
+        # Tell systemd to not use a pager when printing information
+        source: "data:,export%20SYSTEMD_PAGER=cat"
+    - path: /etc/sysctl.d/20-silence-audit.conf
+      mode: 0644
+      contents:
+        # Raise console message logging level from DEBUG (7) to WARNING (4)
+        # to hide audit messages from the interactive console
+        source: "data:,kernel.printk=4" 
+    - path: /etc/ssh/sshd_config.d/20-enable-passwords.conf
+      mode: 0644
+      contents:
+        # Enable SSH password login
+        source: "data:,PasswordAuthentication%20yes"
+
