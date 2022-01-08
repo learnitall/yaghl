@@ -1,0 +1,10 @@
+#!ipxe
+echo "Provisioning CoreOS..."
+echo "Resolving provision loop..."
+imgfetch {{ url_for("update_machine", _external=True) }}?arch=${arch}&mac=${mac:hexhyp}&provision=false
+echo "Starting..."
+imgfree
+kernel {{ url_for("staticfiles", _external=True, filename=coreos_kernel) }} ip=dhcp rd.neednet=1 coreos.inst.install_dev={{ coreos_install_device }} coreos.inst.ignition_url={{ url_for("butane", _external=True, filename=coreos_butane_file) }}?arch=${arch}&mac=${mac:hexhyp} coreos.live.rootfs_url={{ url_for("staticfiles", _external=True, filename=coreos_live_rootfs_img) }} autologin
+initrd {{ url_for("staticfiles", _external=True, filename=coreos_initrd_img) }}
+boot
+exit 0

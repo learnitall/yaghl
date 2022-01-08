@@ -34,9 +34,17 @@ podman run \
     --pod yaghl \
     --name dnsmasq \
     --cap-add=NET_ADMIN,NET_RAW \
-    -v ./data/dnsmasq.conf:/etc/dnsmasq.conf:Z \
+    -v ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:Z \
     -v ./data/tftpboot:/var/lib/tftpboot:Z \
     localhost/yaghl-dnsmasq
+
+podman run \
+    --detach \
+    --network yaghl-internal \
+    --ip 10.0.0.65 \
+    --pod yaghl \
+    --name redis \
+    redis
 
 podman run \
     --detach \
@@ -44,12 +52,12 @@ podman run \
     --ip 10.0.0.70 \
     --pod yaghl \
     --name foremanlite \
-    -v ./data/matchbox/:/opt/matchbox:Z \
-    localhost/foremanlite -b 0.0.0.0:8080 --log-level=debug
-
-#
-#    -address=0.0.0.0:8080 \
-#    -log-level=debug \
-#    -data-path=/opt/matchbox \
-#    -assets-path=/opt/matchbox/assets
-
+    -v ./foremanlite/coreos_x86_64.json:/etc/foremanlite/groups/coreos_x86_64.json:Z \
+    -v ./foremanlite/coreos.ipxe:/etc/foremanlite/data/ipxe/coreos.ipxe:Z \
+    -v ./foremanlite/fedora-coreos.bu:/etc/foremanlite/data/butane/fedora-coreos.bu:Z \
+    -v ./foremanlite/gunicorn_conf.py:/etc/foremanlite/exec/gunicorn_conf.py:Z \
+    -v ./data/fedora-coreos:/etc/foremanlite/data/static:Z \
+    -v ./foremanlite/cliconfig:/app/cliconfig:Z \
+    localhost/foremanlite:0.1.0 \
+    --config /app/cliconfig \
+    start
