@@ -1,4 +1,4 @@
 FROM fedora:latest
 
-RUN dnf install -y iptables iproute
+RUN dnf install -y iptables iproute iputils tcpdump
 
