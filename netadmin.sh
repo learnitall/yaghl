@@ -5,15 +5,15 @@ podman build -t yaghl-dnsmasq containerfiles/dnsmasq
 podman network create yaghl-internal \
     --driver macvlan \
     --opt parent=enp4s0 \
-    --subnet 10.0.0.0/24 \
-    --gateway 10.0.0.1
+    --subnet 192.168.3.0/24 \
+    --gateway 192.168.3.1
 
 # https://blog.oddbit.com/post/2018-03-12-using-docker-macvlan-networks/
 if not nmcli con show yaghl-shim
     ip link add yaghl-shim link enp4s0 type macvlan mode bridge
-    ip addr add 10.0.0.55/32 dev yaghl-shim
+    ip addr add 192.168.3.55/32 dev yaghl-shim
     ip link set yaghl-shim up
-    ip route add 10.0.0.0/24 dev yaghl-shim
+    ip route add 192.168.3.0/24 dev yaghl-shim
 end
 
 podman network create yaghl-external \
@@ -37,11 +37,11 @@ podman run \
 podman run \
     --detach \
     --network yaghl-internal \
-    --ip 10.0.0.60 \
-    --add-host foremanlite.yaghl:10.0.0.70 \
-    --add-host rpi1.yaghl:10.0.0.121 \
-    --add-host rpi2.yaghl:10.0.0.122 \
-    --add-host rpi3.yaghl:10.0.0.123 \
+    --ip 192.168.3.60 \
+    --add-host foremanlite.yaghl:192.168.3.70 \
+    --add-host rpi1.yaghl:192.168.3.121 \
+    --add-host rpi2.yaghl:192.168.3.122 \
+    --add-host rpi3.yaghl:192.168.3.123 \
     --pod yaghl \
     --name dnsmasq \
     --cap-add=NET_ADMIN,NET_RAW \
@@ -52,15 +52,18 @@ podman run \
 podman run \
     --detach \
     --network yaghl-internal \
-    --ip 10.0.0.65 \
+    --ip 192.168.3.65 \
     --pod yaghl \
     --name redis \
-    redis
+    -v ./data/redis:/data:Z \
+    redis \
+    redis-server \
+    --save 60 1 \
 
 podman run \
     --detach \
     --network yaghl-internal \
-    --ip 10.0.0.70 \
+    --ip 192.168.3.70 \
     --pod yaghl \
     --name foremanlite \
     # Config

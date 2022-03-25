@@ -11,7 +11,7 @@
       "coreos_butane_file": "fedora-coreos-k3s.bu",
       "k3s_bootstrap": "k3s-bootstrap-coreos.sh",
       "k3s_token": "mysupersecuretoken",
-      "k3s_url": "https://10.0.0.121:6443",
+      "k3s_url": "https://192.168.3.121:6443",
       "k3s_node_type": "agent"
     }
 }
