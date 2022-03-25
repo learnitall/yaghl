@@ -14,5 +14,6 @@ curl -sfL https://get.k3s.io | \
     K3S_CLUSTER_INIT=true \
     INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' \
     {%- endif %}
-    sh -
+    sh -s - \
+    --kubelet-arg="--network-plugin=cni --allocate-node-ciders"
 
