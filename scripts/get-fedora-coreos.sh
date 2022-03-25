@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
+# Run from scripts directory
 # Based on https://github.com/poseidon/matchbox/blob/master/scripts/get-fedora-coreos
-# USAGE: ./scripts/get-fedora-coreos
-# USAGE: ./scripts/get-fedora-coreos stream version dest
+# USAGE: ./get-fedora-coreos
+# USAGE: ./get-fedora-coreos stream version dest
 #
 set -eou pipefail
 
-ARCH=${1:-"$ARCH"}
+ARCH=${1:-"x86_64"}
 STREAM=${2:-"stable"}
-VERSION=${3:-"34.20211016.3.0"}
-DEST_DIR=${4:-"$PWD/data/matchbox/assets"}
-DEST=$DEST_DIR/fedora-coreos
+VERSION=${3:-"35.20211215.3.0"}
+DEST=${4:-"$PWD/../data/fedora-coreos"}
 BASE_URL=https://builds.coreos.fedoraproject.org/prod/streams/$STREAM/builds/$VERSION/$ARCH
 
 # check stream/version exist based on the header response

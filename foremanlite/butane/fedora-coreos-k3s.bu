@@ -1,0 +1,64 @@
+# Helpful sources:
+# https://techoverflow.net/2021/06/14/a-simple-coreos-config-for-beginners-with-password-login/
+# https://coreos.github.io/butane/config-fcos-v1_4/
+# https://www.murillodigital.com/tech_talk/k3s_in_coreos/#automating-the-installation
+# core, f00bar
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      password_hash: $y$j9T$cmG6eiGNX0cTDs.FtCQ0./$94/X5D2fSkVQrqRkUjaTbIf9pDiqN.MfOsl6GA/Eez.
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrg4F0quvcS4lo/x6mNpsTUIMtNwo1N/rqAvZLrEhlwmKnDLi4yXUyzvhtNiFeUOuG41LuKjtnjajbfT2i+fCnrYQBfql2UUXtxKLxAjf9ag8xwejfMLlQHHvYmgQcqXuegJ5Y0oBoUWPhlEP/qz11t0fHQrCjvjwEo276ohSenEEkfP5zmTWF1ifp4eCdk672lflGUYZJu1cosAo8aE+B4UyG176q089uxDPxg8aLwAFtsD8LIMTtSPHQtaIXl4F8HSqXygvIA+vlHm3wVk9yZ8jjmdtZvzt78PnbpZRJ0ZaiAF62404v0rGao5TPrdh6nW+tiNYNR8OTStfm44jUQroMo2h7FE6LUlxfomTQiSgeXkRFedJHe0YGZ9Z1X98IOeuGqz8P0zKaR/doKvJQ+aRhzAWN2bZsPN09R4zplAuIhU/2sO6/3G7Omur7IRVfeOR86ZJliIOTAPRpPuIbzUZ/fnxw8NAM8VZw2MwV7aTvTYryWu+wdqKkj8tcV8AwzQ2K3PZoZlad8oq8WxKVJou8nq82Jue22sYRSR5iJNl86U8fgQqS90KWRtupwXckQ55cBLktka1qS4nz/uvPxoqe0obpt9aMBiG2svcs8391IattwrgQhrYclHCe2xtEa76B7zUOoFozR1Lo/jkiwAoObcn5s3teD7JL5eg1BQ== rydrew@alfred2p0
+systemd:
+  units:
+    - name: containerd.service
+      enabled: true
+    - name: k3s-bootstrap.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=network-online.target
+        Wants=network-online.target
+        Before=systemd-user-sessions.service
+        [Service]
+        RemainAfterExit=yes
+        Type=simple
+        ExecStart=/usr/local/bin/k3s-bootstrap.sh
+        StandardOutput=kmsg+console
+        StandardError=kmsg+console
+        Restart=always
+        RestartSec=15
+        [Install]
+        WantedBy=multi-user.target
+storage:
+  files:
+    - path: /etc/zincati/config.d/10-enable-immediate-updates.toml
+      overwrite: true
+      contents:
+        inline: |
+          [updates]
+          strategy = "immediate"
+    - path: /etc/profile.d/systemd-pager.sh
+      mode: 0644
+      contents:
+        inline: |
+          # Tell systemd to not use pager when printing information
+          export SYSTEMD_PAGER=cat
+    - path: /etc/sysctl.d/20-silence-audit.conf
+      mode: 0644
+      contents:
+        inline: |
+          # Raise console message logging level from DEBUG (7) to WARNING (4)
+          # to hide audit messages from the interactive console
+          kernel.printk=4
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: |
+          {{ name }}.yaghl
+    - path: /usr/local/bin/k3s-bootstrap.sh
+      mode: 0755
+      contents:
+        source: {{ url_for("templatefiles", _external=True, filename=k3s_bootstrap) }}?arch={{ arch }}&mac={{ mac }}

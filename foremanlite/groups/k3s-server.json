@@ -1,0 +1,14 @@
+{
+    "name": "k3s-server",
+    "selectors": [
+        {
+            "type": "exact",
+            "attr": "name",
+            "val": "rpi1"
+        }
+    ],
+    "vars": {
+        "k3s_url": "",
+        "k3s_node_type": "server"
+    }
+}

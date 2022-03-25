@@ -1,0 +1,4 @@
+FROM fedora:latest
+RUN dnf install -y dnsmasq
+EXPOSE 53
+ENTRYPOINT ["/usr/sbin/dnsmasq"]
