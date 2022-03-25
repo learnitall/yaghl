@@ -2,9 +2,6 @@
 # Boostrap installation of k3s on CoreOS
 set -xe
 
-# First install needed dependencies
-rpm-ostree install --idempotent https://rpm.rancher.io/k3s/stable/common/centos/8/noarch/k3s-selinux-1.1-1.el8.noarch.rpm -A
-
 curl -sfL https://get.k3s.io | \
     INSTALL_K3S_SKIP_SELINUX_RPM=true \
     INSTALL_K3S_EXEC={{ k3s_node_type }} \

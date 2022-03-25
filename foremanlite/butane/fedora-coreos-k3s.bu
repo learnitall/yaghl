@@ -40,12 +40,26 @@ storage:
         inline: |
           [updates]
           strategy = "immediate"
+    - path: /etc/selinux/config
+      overwrite: true
+      contents:
+        inline: |
+          SELINUX=permissive
+          SELINUXTYPE=targeted
     - path: /etc/profile.d/systemd-pager.sh
       mode: 0644
       contents:
         inline: |
           # Tell systemd to not use pager when printing information
           export SYSTEMD_PAGER=cat
+    - path: /etc/sysctl.d/30-disable-rp-filter.conf
+      mode: 0644
+      contents:
+        inline: |
+          # Ensure rp_filter isn't causing network issues
+          # See https://github.com/cilium/cilium/issues/18131
+          net.ipv4.conf.default.rp_filter=0
+          net.ipv4.conf.*.rp_filter=0
     - path: /etc/sysctl.d/20-silence-audit.conf
       mode: 0644
       contents:
