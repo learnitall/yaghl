@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Run from scripts directory
 # Sourced from https://raw.githubusercontent.com/poseidon/dnsmasq/master/get-tftp-files
 set -eu
 

@@ -1,0 +1,17 @@
+{
+    "name": "coreos_aarch64",
+    "selectors": [
+        {
+            "type": "exact",
+            "attr": "arch",
+            "val": "aarch64"
+        }
+    ],
+    "vars": {
+        "chain_file": "coreos.ipxe",
+        "coreos_install_device": "/dev/mmcblk1",
+        "coreos_kernel": "fedora-coreos-35.20211215.3.0-live-kernel-aarch64",
+        "coreos_live_rootfs_img": "fedora-coreos-35.20211215.3.0-live-rootfs.aarch64.img",
+        "coreos_initrd_img": "fedora-coreos-35.20211215.3.0-live-initramfs.aarch64.img"
+    }
+}

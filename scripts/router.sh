@@ -1,4 +1,5 @@
 #!/bin/bash
+# Setup script for router container
 
 set -x
 

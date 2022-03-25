@@ -1,0 +1,3 @@
+verbose=True
+redis=True
+redis_url="redis://10.0.0.65:6379"

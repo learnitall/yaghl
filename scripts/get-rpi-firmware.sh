@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Run from scripts directory
 # https://github.com/raspberrypi/firmware
 
 set -eux

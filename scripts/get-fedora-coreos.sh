@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+# Run from scripts directory
 # Based on https://github.com/poseidon/matchbox/blob/master/scripts/get-fedora-coreos
-# USAGE: ./scripts/get-fedora-coreos
-# USAGE: ./scripts/get-fedora-coreos stream version dest
+# USAGE: ./get-fedora-coreos
+# USAGE: ./get-fedora-coreos stream version dest
 #
 set -eou pipefail
 
