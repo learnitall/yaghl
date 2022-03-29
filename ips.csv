@@ -1,10 +1,10 @@
 name,ip,description
 router,192.168.3.1,router podman container on yaghl-internal
-alfred2p0,192.168.0.55,yaghl-shim interface on container host
-dnsmasq,192.168.0.60,dnsmasq podman container on yaghl-internal
-redis,192.168.0.65,redis podman container on yaghl-internal
-foremanlite,192.168.0.70,foremanlite podman container on yaghl-internal
-rpi1.yaghl,192.168.0.121,Raspberry Pi One (leftmost; static DHCP)
-rpi2.yaghl,192.168.0.122,Raspberry Pi Two (middle; static DHCP)
-rpi3.yaghl,192.168.0.123,Raspberry Pi Three (rightmost; static DHCP)
+alfred2p0,192.168.3.55,yaghl-shim interface on container host
+dnsmasq,192.168.3.60,dnsmasq podman container on yaghl-internal
+redis,192.168.3.65,redis podman container on yaghl-internal
+foremanlite,192.168.3.70,foremanlite podman container on yaghl-internal
+rpi1.yaghl,192.168.3.121,Raspberry Pi One (leftmost; static DHCP)
+rpi2.yaghl,192.168.3.122,Raspberry Pi Two (middle; static DHCP)
+rpi3.yaghl,192.168.3.123,Raspberry Pi Three (rightmost; static DHCP)
 
