@@ -9,7 +9,7 @@
     ],
     "vars": {
         "chain_file": "coreos.ipxe",
-        "coreos_install_device": "/dev/vda",
+        "coreos_install_device": "/dev/sda",
         "coreos_kernel": "fedora-coreos-35.20211215.3.0-live-kernel-x86_64",
         "coreos_live_rootfs_img": "fedora-coreos-35.20211215.3.0-live-rootfs.x86_64.img",
         "coreos_initrd_img": "fedora-coreos-35.20211215.3.0-live-initramfs.x86_64.img"

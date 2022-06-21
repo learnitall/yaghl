@@ -7,4 +7,5 @@ foremanlite,192.168.3.70,foremanlite podman container on yaghl-internal
 rpi1.yaghl,192.168.3.121,Raspberry Pi One (leftmost; static DHCP)
 rpi2.yaghl,192.168.3.122,Raspberry Pi Two (middle; static DHCP)
 rpi3.yaghl,192.168.3.123,Raspberry Pi Three (rightmost; static DHCP)
-
+nuc1.yaghl,192.168.3.123,Nuc One (leftmost; static DHCP)
+nuc2.yaghl,192.168.3.124,Nuc Two (rightmost; static DHCP)
