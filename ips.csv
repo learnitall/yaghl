@@ -4,8 +4,8 @@ alfred2p0,,192.168.3.55,yaghl-shim interface on container host
 dnsmasq,,192.168.3.60,dnsmasq podman container on yaghl-internal
 redis,,192.168.3.65,redis podman container on yaghl-internal
 foremanlite,,192.168.3.70,foremanlite podman container on yaghl-internal
-rpi1.yaghl,b8-ae-ed-77-33-0c,192.168.3.121,Raspberry Pi One (leftmost; static DHCP)
+rpi1.yaghl,e4-5f-01-3c-10-b7,192.168.3.121,Raspberry Pi One (leftmost; static DHCP)
 rpi2.yaghl,e4-5f-01-3c-10-a1,192.168.3.122,Raspberry Pi Two (middle; static DHCP)
 rpi3.yaghl,dc-a6-32-e9-a1-47,192.168.3.123,Raspberry Pi Three (rightmost; static DHCP)
-nuc1.yaghl,b8-ae-ed-77-33-0c,192.168.3.123,Nuc One (leftmost; static DHCP)
-nuc2.yaghl,b8-ae-ed-77-39-30,192.168.3.124,Nuc Two (rightmost; static DHCP)
+nuc1.yaghl,b8-ae-ed-77-33-0c,192.168.3.124,Nuc One (leftmost; static DHCP)
+nuc2.yaghl,b8-ae-ed-77-39-30,192.168.3.125,Nuc Two (rightmost; static DHCP)
