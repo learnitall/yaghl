@@ -10,7 +10,7 @@ curl -sfL https://get.k3s.io | \
     K3S_URL={{ k3s_url }} \
     {%- if k3s_node_type == "server" %}
     K3S_CLUSTER_INIT=true \
-    INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy --disable=metrics-server' \
+    INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy --disable traefik' \
     {%- endif %}
     sh -s - \
     --kubelet-arg="--network-plugin=cni --allocate-node-ciders"
