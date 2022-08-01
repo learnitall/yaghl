@@ -5,6 +5,26 @@
 # core, f00bar
 variant: fcos
 version: 1.4.0
+storage:
+  disks:
+    - device: {{ coreos_install_device }}
+      wipe_table: true
+      partitions:
+        - label: var
+        - label: opt
+  filesystems:
+    - device: /dev/disk/by-partlabel/var
+      label: var
+      format: xfs
+      wipe_filesystem: false
+      path: /var
+      with_mount_unit: true
+    - device: /dev/disk/by-partlabel/opt
+      label: opt
+      format: xfs
+      wipe_filesystem: false
+      path: /opt
+      with_mount_unit: true
 passwd:
   users:
     - name: core
@@ -34,12 +54,6 @@ systemd:
         WantedBy=multi-user.target
 storage:
   files:
-    - path: /etc/zincati/config.d/10-enable-immediate-updates.toml
-      overwrite: true
-      contents:
-        inline: |
-          [updates]
-          strategy = "immediate"
     - path: /etc/selinux/config
       overwrite: true
       contents:
