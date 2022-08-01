@@ -4,7 +4,7 @@
         {
             "type": "exact",
             "attr": "name",
-            "val": "rpi1"
+            "val": "nuc1"
         }
     ],
     "vars": {
