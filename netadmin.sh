@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/bin/bash
 podman build -t yaghl-router containerfiles/router
 podman build -t yaghl-dnsmasq containerfiles/dnsmasq
 
@@ -42,6 +42,8 @@ podman run \
     --add-host rpi1.yaghl:192.168.3.121 \
     --add-host rpi2.yaghl:192.168.3.122 \
     --add-host rpi3.yaghl:192.168.3.123 \
+    --add-host nuc1.yaghl:192.168.3.124 \
+    --add-host nuc2.yaghl:192.168.3.125 \
     --pod yaghl \
     --name dnsmasq \
     --cap-add=NET_ADMIN,NET_RAW \
