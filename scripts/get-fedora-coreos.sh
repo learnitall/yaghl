@@ -8,7 +8,7 @@ set -eou pipefail
 
 ARCH=${1:-"x86_64"}
 STREAM=${2:-"stable"}
-VERSION=${3:-"35.20211215.3.0"}
+VERSION=${3:-"36.20220716.3.1"}
 DEST=${4:-"$PWD/../data/fedora-coreos"}
 BASE_URL=https://builds.coreos.fedoraproject.org/prod/streams/$STREAM/builds/$VERSION/$ARCH
 
