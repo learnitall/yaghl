@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/fish
 podman build -t yaghl-router containerfiles/router
 podman build -t yaghl-dnsmasq containerfiles/dnsmasq
 
