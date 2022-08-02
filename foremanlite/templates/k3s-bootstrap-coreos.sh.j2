@@ -5,7 +5,7 @@ set -xeo pipefail
 curl -sfL https://get.k3s.io | \
     INSTALL_K3S_SKIP_SELINUX_RPM=true \
     INSTALL_K3S_EXEC={{ k3s_node_type }} \
-    INSTALL_K3S_VERSION='v1.23.4+k3s1' \
+    INSTALL_K3S_VERSION='v1.24.3+k3s1' \
     K3S_TOKEN={{ k3s_token }} \
     K3S_URL={{ k3s_url }} \
     {%- if k3s_node_type == "server" %}
