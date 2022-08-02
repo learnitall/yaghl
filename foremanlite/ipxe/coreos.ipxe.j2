@@ -9,8 +9,8 @@ echo "Provisioning CoreOS..."
 # echo "Resolving provision loop..."
 # imgfetch {{ url_for("update_machine", _external=True) }}?arch=${arch}&mac=${mac:hexhyp}&provision=false&name={{ name }}
 echo "Starting..."
-imgfree
-kernel {{ url_for("staticfiles", _external=True, filename=coreos_kernel) }} initrd={{ coreos_initrd_img }} ip=dhcp ignition.firstboot ignition.platform.id=metal ignition.config.url={{ url_for("butane", _external=True, filename=coreos_butane_file) }}?arch=${arch}&mac=${mac:hexhyp} coreos.live.rootfs_url={{ url_for("staticfiles", _external=True, filename=coreos_live_rootfs_img) }} autologin
+# imgfree
+kernel {{ url_for("staticfiles", _external=True, filename=coreos_kernel) }} initrd={{ coreos_initrd_img }} ip=dhcp rd.neednet=1 ignition.firstboot ignition.platform.id=metal ignition.config.url={{ url_for("butane", _external=True, filename=coreos_butane_file) }}?arch=${arch}&mac=${mac:hexhyp} coreos.live.rootfs_url={{ url_for("staticfiles", _external=True, filename=coreos_live_rootfs_img) }} autologin
 initrd {{ url_for("staticfiles", _external=True, filename=coreos_initrd_img) }}
 boot
 exit 0
