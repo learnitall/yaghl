@@ -1,0 +1,2 @@
+#!ipxe
+chain --autofree {{ url_for("ipxefiles", filename=passfile, _external=True) }}?arch=${arch}&mac=${mac:hexhyp}
