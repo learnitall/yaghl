@@ -5,26 +5,6 @@
 # core, f00bar
 variant: fcos
 version: 1.4.0
-storage:
-  disks:
-    - device: {{ coreos_install_device }}
-      wipe_table: true
-      partitions:
-        - label: var
-        - label: opt
-  filesystems:
-    - device: /dev/disk/by-partlabel/var
-      label: var
-      format: xfs
-      wipe_filesystem: false
-      path: /var
-      with_mount_unit: true
-    - device: /dev/disk/by-partlabel/opt
-      label: opt
-      format: xfs
-      wipe_filesystem: false
-      path: /opt
-      with_mount_unit: true
 passwd:
   users:
     - name: core
@@ -52,7 +32,35 @@ systemd:
         RestartSec=15
         [Install]
         WantedBy=multi-user.target
+    - name: foremanlite-callback.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=network-online.target
+        Wants=network-online.target
+        [Service]
+        RemainAfterExit=true
+        Type=simple
+        ExecStart=/usr/bin/curl -v {{ url_for("update_machine", _external=True) }}?arch={{ arch }}&mac={{ mac }}&name={{ name }}&provision=false
+        StandardOutput=journal
+        Restart=always
+        RestartSec=60
+        [Install]
+        WantedBy=multi-user.target
 storage:
+  disks:
+    - device: {{ coreos_install_device }}
+      wipe_table: true
+      partitions:
+        - label: var
+          wipePartitionEntry: true
+  filesystems:
+    - device: /dev/disk/by-partlabel/var
+      label: var
+      format: ext4
+      wipe_filesystem: {{ provision }}
+      path: /var
+      with_mount_unit: true
   files:
     - path: /etc/selinux/config
       overwrite: true
@@ -61,6 +69,7 @@ storage:
           SELINUX=permissive
           SELINUXTYPE=targeted
     - path: /etc/profile.d/systemd-pager.sh
+      overwrite: true
       mode: 0644
       contents:
         inline: |
@@ -68,6 +77,7 @@ storage:
           export SYSTEMD_PAGER=cat
     - path: /etc/sysctl.d/99-disable-rp-filter.conf
       mode: 0644
+      overwrite: true
       contents:
         inline: |
           # Ensure rp_filter isn't causing network issues
@@ -76,6 +86,7 @@ storage:
           net.ipv4.conf.*.rp_filter=0
     - path: /etc/sysctl.d/20-silence-audit.conf
       mode: 0644
+      overwrite: true
       contents:
         inline: |
           # Raise console message logging level from DEBUG (7) to WARNING (4)
@@ -83,10 +94,12 @@ storage:
           kernel.printk=4
     - path: /etc/hostname
       mode: 0644
+      overwrite: true
       contents:
         inline: |
           {{ name }}.yaghl
     - path: /usr/local/bin/k3s-bootstrap.sh
       mode: 0755
+      overwrite: true
       contents:
         source: {{ url_for("templatefiles", _external=True, filename=k3s_bootstrap) }}?arch={{ arch }}&mac={{ mac }}
