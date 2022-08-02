@@ -75,7 +75,7 @@ podman run \
     -v ./foremanlite/groups:/etc/foremanlite/groups:Z \
     # ipxe
     -v ./foremanlite/ipxe/coreos.ipxe.j2:/etc/foremanlite/data/ipxe/coreos.ipxe.j2:Z \
-    -v ./foremanlite/ipxe.start.ipxe.j2:/etc/foremnalite/data/ipxe/start.ipxe.j2
+    -v ./foremanlite/ipxe/start.ipxe.j2:/etc/foremnalite/data/ipxe/start.ipxe.j2:Z \
     # Static data
     -v ./data/fedora-coreos:/etc/foremanlite/data/static:Z \
     # Templates
