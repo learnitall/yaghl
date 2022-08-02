@@ -1,6 +1,6 @@
 #!/bin/bash
 # Boostrap installation of k3s on CoreOS
-set -xe
+set -xeo pipefail
 
 curl -sfL https://get.k3s.io | \
     INSTALL_K3S_SKIP_SELINUX_RPM=true \
