@@ -19,9 +19,8 @@ systemd:
       enabled: true
       contents: |
         [Unit]
-        After=network-online.target
+        After=network-online.target systemd-user-sessions.service
         Wants=network-online.target
-        Before=systemd-user-sessions.service
         [Service]
         RemainAfterExit=yes
         Type=simple
